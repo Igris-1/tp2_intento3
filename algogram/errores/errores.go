@@ -1,0 +1,60 @@
+package errores
+
+// aca van los errores que se pueden dar en el programa
+
+/* ERROR USUARIO */
+
+// En caso que ya hubiera un usuario loggeado
+type UsuarioYaLoggeado struct{}
+
+func (e UsuarioYaLoggeado) Error() string {
+	return "Error: Ya habia un usuario loggeado"
+}
+
+// En caso que el usuario indicado no exista
+type UsuarioNoExiste struct{}
+
+func (e UsuarioNoExiste) Error() string {
+	return "Error: usuario no existente"
+}
+
+// para logout y publicar post en caso que no hubiera un usuario loggeado
+type UsuarioNoLoggeado struct{}
+
+func (e UsuarioNoLoggeado) Error() string {
+	return "Error: no habia usuario loggeado"
+}
+
+/* ERROR VER POST */
+
+// En caso que un usuario no tenga más posts para ver, o bien que no haya usuario loggeado
+type NoHayMasPost struct{}
+
+func (e NoHayMasPost) Error() string {
+	return "Usuario no loggeado o no hay mas posts para ver"
+}
+
+/* ERROR LIKEAR UN POST*/
+
+// En caso que no haya un usuario loggeado o el post en cuestión no exista
+type PostNoExiste struct{}
+
+func (e PostNoExiste) Error() string {
+	return "Error: Usuario no loggeado o Post inexistente"
+}
+
+/* ERROR MOSTRAR LIKES */
+
+// En caso que un post no tenga likes, o bien no exista el id
+type PostSinLikes struct{}
+
+func (e PostSinLikes) Error() string {
+	return "Error: Post inexistente o sin likes"
+}
+
+/* ERRORE DE LECTURA DE ARCHIVO */
+type ErrorLecturaArchivo struct{}
+
+func (e ErrorLecturaArchivo) Error() string {
+	return "Error: No se pudo leer el archivo"
+}
