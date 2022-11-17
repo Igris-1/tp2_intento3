@@ -18,7 +18,7 @@ func (e UsuarioNoExiste) Error() string {
 
 /* ERROR SIN USUARIO LOGGEADO */
 
-// para logout y publicar post en caso que no hubiera un usuario loggeado
+// logout y publicar post en caso que no hubiera un usuario loggeado
 type UsuarioNoLoggeado struct{}
 
 func (e UsuarioNoLoggeado) Error() string {

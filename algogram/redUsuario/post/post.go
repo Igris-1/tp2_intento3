@@ -5,15 +5,15 @@ import (
 )
 
 type Post interface {
-	// PostID devuelve el id del post
+	// PostID: devuelve el id del post
 	PostID() int
 
-	// devuelve el nombre del posteador
+	// Publicar: devuelve el nombre del publicador del post
 	Publicador() string
 
-	// devuelve el mensaje del post
+	// Contenido: devuelve el mensaje del post
 	Contenido() string
 
-	// PostLikes devuelve el arbol de likes del post
+	// PostLikes: devuelve el diccionario de personas que le dieron like al post
 	PostLikes() abb.DiccionarioOrdenado[string, int]
 }

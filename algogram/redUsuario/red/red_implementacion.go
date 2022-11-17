@@ -15,12 +15,12 @@ type red struct {
 	loggeado    pila.Pila[usuario.User]
 }
 
-// crear una red
+// CrearRed: crea una red con un registro de usuarios, un registro de posts y un usuario loggeado
 func CrearRed() *red {
 	return &red{hash.CrearHash[string, usuario.User](), hash.CrearHash[int, *post.Post](), pila.CrearPilaDinamica[usuario.User]()}
 }
 
-// LoggIn permite al usuario loggearse en la red
+// LoggIn: loggea al usuario en la red, caso contrario devuelve error
 func (r *red) LoggIn(nombre string) error {
 	if !r.loggeado.EstaVacia() {
 		return errores.UsuarioYaLoggeado{}
@@ -32,7 +32,7 @@ func (r *red) LoggIn(nombre string) error {
 	return nil
 }
 
-// LoggOut permite al usuario desloggearse de la red
+// LoggOut: desloggea al usuario de la red, caso contrario devuelve error
 func (r *red) LoggOut() error {
 	if r.loggeado.EstaVacia() {
 		return errores.UsuarioNoLoggeado{}
@@ -41,7 +41,7 @@ func (r *red) LoggOut() error {
 	return nil
 }
 
-// Loggeado permite ver si hay un usuario loggeado
+// Loggeado: devuelve el usuario loggeado, caso contrario devuelve error
 func (r *red) Loggeado() (usuario.User, error) {
 	if r.loggeado.EstaVacia() {
 		return nil, errores.UsuarioNoLoggeado{}
@@ -49,15 +49,15 @@ func (r *red) Loggeado() (usuario.User, error) {
 	return r.loggeado.VerTope(), nil
 }
 
-// PublicarPost permite publicar un post en la red
+// PublicarPost: publicar un post en la red lo guarda en el registro de posts y en el feed de cada usuario
 func (r *red) PublicarPost(post post.Post) error {
 	r.posteados.Guardar(post.PostID(), &post)
-	r.GuardarFeed(post)
+	r.guardarFeed(post)
 	return nil
 }
 
-// guardar el post en el feed de cada usuario
-func (r *red) GuardarFeed(post post.Post) {
+// guardarFeed: funcion auxiliar de PublicarPost() que guarda el post en el feed de cada usuario
+func (r *red) guardarFeed(post post.Post) {
 	iterRegistrados := r.registrados.Iterador()
 	for iterRegistrados.HaySiguiente() {
 		_, usuario := iterRegistrados.VerActual()
@@ -69,7 +69,7 @@ func (r *red) GuardarFeed(post post.Post) {
 	}
 }
 
-// Likear permite al usuario loggeado likear un post
+// Likear: permite al usuario loggeado likear un post, caso contrario devuelve error
 func (r *red) Likear(id int) error {
 	if r.loggeado.EstaVacia() || !r.posteados.Pertenece(id) {
 		return errores.PostNoExiste{}
@@ -85,7 +85,7 @@ func (r *red) Likear(id int) error {
 	return nil
 }
 
-// MostrarLikes devuelve el arbol de likes de un post
+// MostrarLikes: devuelve el diccionario de personas que le dieron like al post, caso contrario devuelve error
 func (r *red) MostrarLikes(id int) (abb.DiccionarioOrdenado[string, int], error) {
 	if !r.posteados.Pertenece(id) {
 		return nil, errores.PostInexistenteOSinLikes{}
@@ -98,8 +98,8 @@ func (r *red) MostrarLikes(id int) (abb.DiccionarioOrdenado[string, int], error)
 	return arbolDeLikes, nil
 }
 
-// devolver registrados
+// Registrados: devuelve el diccionario de usuarios registrados en la red
 func (r *red) Registrados() hash.Diccionario[string, usuario.User] { return r.registrados }
 
-// devolver posteados
+// CantidadPost: devuelve la cantidad de posts publicados en la red
 func (r red) CantidadPost() int { return r.posteados.Cantidad() }

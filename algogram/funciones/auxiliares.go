@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-// agregar usuarios a la red
+// AgregarUsuarios: Lee el archivo de usuarios, crea una red, un registro y agrega los usuarios a la red
 func AgregarUsuarios(ruta string) (red.Red, error) {
 	archivo, err := os.Open(ruta)
 	if err != nil {
@@ -32,7 +32,7 @@ func AgregarUsuarios(ruta string) (red.Red, error) {
 	return red, nil
 }
 
-// leer comando
+// LeerComand: toma el input del usuario y lo separa en comando y argumento
 func LeerComando(entrada string) (string, string) {
 	dato := strings.Split(entrada, " ")
 	comando := dato[0]

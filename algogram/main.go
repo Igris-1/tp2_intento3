@@ -8,6 +8,7 @@ import (
 	"os"
 )
 
+// main: Función principal de control del programa
 func main() {
 	ruta := os.Args[1]
 	red, error := funciones.AgregarUsuarios(ruta)

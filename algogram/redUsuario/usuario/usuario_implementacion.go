@@ -6,7 +6,7 @@ import (
 	heap "algogram/tdas/heap"
 )
 
-// funcion auxiliar para devolver el modulo de un numero
+// funcion auxiliar para calcular el modulo
 func modulo(a int) int {
 	if a < 0 {
 		return -a
@@ -31,6 +31,8 @@ func compareInts(af1, af2, idA, idB int) int {
 	return 0
 }
 
+// funcion auxiliar de calculo de afnidades respecto a un determinado usuario
+// si las afinidades son iguales, se compara el id de los posts
 func Cmp(u usuario) func(a, b *post.Post) int {
 	return func(a, b *post.Post) int {
 		registro := u.Registro()
@@ -45,7 +47,6 @@ func Cmp(u usuario) func(a, b *post.Post) int {
 
 		idA := postA.PostID()
 		idB := postB.PostID()
-
 		return compareInts(afinidadA, afinidadB, idA, idB)
 	}
 }
@@ -58,7 +59,7 @@ type usuario struct {
 	reg      *hash.Diccionario[string, User]
 }
 
-// crear un usuario
+// CrearUsuario: crea un usuario con el nombre, posicion, registro de la red y una funcion de comparacion
 func CrearUsuario(nombre string, posicion int, registro *hash.Diccionario[string, User], cmp func(u usuario) func(a *post.Post, b *post.Post) int) User {
 	var usuario usuario
 	usuario.nombre = nombre
@@ -69,17 +70,17 @@ func CrearUsuario(nombre string, posicion int, registro *hash.Diccionario[string
 	return usuario
 }
 
-// ver proximo post
+// VerProximoPost: devuelve el post con mayor afinidad respecto al usuario
 func (u usuario) VerProximoPost() *post.Post { return u.feed.Desencolar() }
 
-// Feed devuelve el feed del usuario
+// Feed: devuelve la cola de prioridad de posts del usuario
 func (u usuario) Feed() heap.ColaPrioridad[*post.Post] { return u.feed }
 
-// devolver el nombre
+// NombreUsuario: devuelve el nombre del usuario
 func (u usuario) NombreUsuario() string { return u.nombre }
 
-// devolver el id
+// PosicionUsuario: devuelve la posicion del usuario en el registro de la red
 func (u usuario) PosicionUsuario() int { return u.posicion }
 
-// devuelve el registro de usuarios
+// Registro: devuelve el diccionario de usuarios registrados en la red
 func (u usuario) Registro() hash.Diccionario[string, User] { return *u.reg }

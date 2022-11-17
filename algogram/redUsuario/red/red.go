@@ -8,30 +8,30 @@ import (
 )
 
 type Red interface {
-	// LoggIn permite al usuario loggearse en la red
+	// LoggIn: loggea al usuario en la red, si ya se hallaba un usuario loggeado o el usuario en cuestio
+	// no existe, devuelve error
 	LoggIn(nombre string) error
 
-	// LoggOut permite al usuario desloggearse de la red
+	// LoggOut: desloggea al usuario de la red, si no se hallaba un usuario loggeado, devuelve error
 	LoggOut() error
 
-	// Loggeado permite ver si hay un usuario loggeado
+	// Loggeado: devuelve el usuario loggeado, si no se hallaba un usuario loggeado, devuelve error
 	Loggeado() (user.User, error)
 
-	// MostrarLikes devuelve el arbol de likes de un determinado post
+	// MostrarLikes: devuelve el diccionario de personas que likearon el correspondiente post
+	// si el post no existe, devuelve error
 	MostrarLikes(id int) (abb.DiccionarioOrdenado[string, int], error)
 
-	// PublicarPost permite publicar un post en la red
+	// PublicarPost: publica un post en la red, si no se halla un usuario loggeado, devuelve error
 	PublicarPost(post post.Post) error
 
-	// Likear permite al usuario loggeado likear un post
+	// Likear: permte al usuario loggeado likear un determinado post por su id, si no se halla un usuario
+	// loggeado o el post no existe, devuelve error
 	Likear(id int) error
 
-	// GuardarFeed guarda el post en el heap de cada usuario
-	GuardarFeed(post post.Post)
-
-	// devolver hash de registrados
+	// Regstrados: devuelve el diccionario de usuarios registrados en la red
 	Registrados() hash.Diccionario[string, user.User]
 
-	// devolver la cantidad de post
+	// CantidadPost: devuelve la cantidad de posts publicados en la red
 	CantidadPost() int
 }

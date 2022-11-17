@@ -7,18 +7,18 @@ import (
 )
 
 type User interface {
-	// ver proximo post
+	// VerProximoPost: devuelve el proximo post del feed del usuario
 	VerProximoPost() *post.Post
 
-	// UsarioID devuelve el id del usuario
+	// PosicionUsuario: devuelve la posicion del usuario en la red
 	PosicionUsuario() int
 
-	// Feed devuelve el feed del usuario
+	// Feed: devuelve la cola de prioridad de posts del usuario
 	Feed() heap.ColaPrioridad[*post.Post]
 
-	// devolver el nombre
+	// NombreUsuario: devuelve el nombre del usuario
 	NombreUsuario() string
 
-	// devuelve el registro de usuarios
+	// Registro: devuelve el diccionario de usuarios registrados en la red
 	Registro() hash.Diccionario[string, User]
 }

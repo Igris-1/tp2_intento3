@@ -21,19 +21,19 @@ func compareString(a, b string) int {
 	}
 }
 
-// crear un post
+// CrearPost: crea un post con el id, el publicador y el contenido
 func CrearPost(id int, publicador string, contenido string) Post {
 	return &post{id, publicador, contenido, abb.CrearABB[string, int](compareString)}
 }
 
-// PostID devuelve el id del post
+// PostID: devuelve el id del post
 func (p post) PostID() int { return p.id }
 
-// PostLikes devuelve el arbol de likes
+// PostLikes: devuelve el diccionario de personas que le dieron like al post
 func (p post) PostLikes() abb.DiccionarioOrdenado[string, int] { return p.personas }
 
-// devolver el nombre del post
+// Publicar: devuelve el nombre del publicador del post
 func (p post) Publicador() string { return p.publicador }
 
-// devolver el contenido del post
+// Contenido: devuelve el mensaje del post
 func (p post) Contenido() string { return p.contenido }
