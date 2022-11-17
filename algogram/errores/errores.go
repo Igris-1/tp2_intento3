@@ -1,7 +1,5 @@
 package errores
 
-// aca van los errores que se pueden dar en el programa
-
 /* ERROR USUARIO */
 
 // En caso que ya hubiera un usuario loggeado
@@ -18,6 +16,8 @@ func (e UsuarioNoExiste) Error() string {
 	return "Error: usuario no existente"
 }
 
+/* ERROR SIN USUARIO LOGGEADO */
+
 // para logout y publicar post en caso que no hubiera un usuario loggeado
 type UsuarioNoLoggeado struct{}
 
@@ -25,12 +25,18 @@ func (e UsuarioNoLoggeado) Error() string {
 	return "Error: no habia usuario loggeado"
 }
 
-/* ERROR VER POST */
+/* ERROR VER PROXIMO POST SIN USUARIO LOGGEADO O SIN POSTS */
 
 // En caso que un usuario no tenga más posts para ver, o bien que no haya usuario loggeado
 type NoHayMasPost struct{}
 
 func (e NoHayMasPost) Error() string {
+	return "Usuario no loggeado o no hay mas posts para ver"
+}
+
+type SinPostsOsinLoggeado struct{}
+
+func (e SinPostsOsinLoggeado) Error() string {
 	return "Usuario no loggeado o no hay mas posts para ver"
 }
 
@@ -46,9 +52,9 @@ func (e PostNoExiste) Error() string {
 /* ERROR MOSTRAR LIKES */
 
 // En caso que un post no tenga likes, o bien no exista el id
-type PostSinLikes struct{}
+type PostInexistenteOSinLikes struct{}
 
-func (e PostSinLikes) Error() string {
+func (e PostInexistenteOSinLikes) Error() string {
 	return "Error: Post inexistente o sin likes"
 }
 

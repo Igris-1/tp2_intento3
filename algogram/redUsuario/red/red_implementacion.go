@@ -51,9 +51,6 @@ func (r *red) Loggeado() (usuario.User, error) {
 
 // PublicarPost permite publicar un post en la red
 func (r *red) PublicarPost(post post.Post) error {
-	if r.loggeado.EstaVacia() {
-		return errores.UsuarioNoLoggeado{}
-	}
 	r.posteados.Guardar(post.PostID(), &post)
 
 	//guardar el post en el feed de cada usuario
@@ -67,7 +64,8 @@ func (r *red) GuardarFeed(post post.Post) {
 	for iterRegistrados.HaySiguiente() {
 		_, usuario := iterRegistrados.VerActual()
 		if usuario.NombreUsuario() != post.Publicador() {
-			usuario.Feed().Encolar(&post)
+			feedDelUser := usuario.Feed()
+			feedDelUser.Encolar(&post)
 		}
 		iterRegistrados.Siguiente()
 	}
@@ -79,8 +77,7 @@ func (r *red) Likear(id int) error {
 		return errores.PostNoExiste{}
 	}
 	usuario := r.loggeado.VerTope()
-	var post post.Post
-	post = *r.posteados.Obtener(id)
+	post := *r.posteados.Obtener(id)
 	arbolDeLikes := post.PostLikes()
 
 	if arbolDeLikes.Pertenece(usuario.NombreUsuario()) {
@@ -94,11 +91,13 @@ func (r *red) Likear(id int) error {
 // MostrarLikes devuelve el arbol de likes de un post
 func (r *red) MostrarLikes(id int) (abb.DiccionarioOrdenado[string, int], error) {
 	if !r.posteados.Pertenece(id) {
-		return nil, errores.PostNoExiste{}
+		return nil, errores.PostInexistenteOSinLikes{}
 	}
-	var post post.Post
-	post = *r.posteados.Obtener(id)
+	post := *r.posteados.Obtener(id)
 	arbolDeLikes := post.PostLikes()
+	if arbolDeLikes.Cantidad() == 0 {
+		return nil, errores.PostInexistenteOSinLikes{}
+	}
 	return arbolDeLikes, nil
 }
 

@@ -18,13 +18,15 @@ func AgregarUsuarios(ruta string) (red.Red, error) {
 
 	// leer archivo
 	red := red.CrearRed()
+	registro := red.Registrados()
 
 	usuarios := bufio.NewScanner(archivo)
 	posicion := 0
 
 	for usuarios.Scan() {
-		registro := red.Registrados()
-		usuario := usuario.CrearUsuario(usuarios.Text(), posicion, &registro)
+		usuario := usuario.CrearUsuario(usuarios.Text(), posicion, &registro, usuario.Cmp)
+		registro.Guardar(usuarios.Text(), usuario)
+
 		red.Registrados().Guardar(usuarios.Text(), usuario)
 		posicion++
 	}

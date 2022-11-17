@@ -2,8 +2,8 @@ package redUsuario
 
 import (
 	post "algogram/redUsuario/post"
-	heap "algogram/tdas/heap"
 	hash "algogram/tdas/hash"
+	heap "algogram/tdas/heap"
 )
 
 type User interface {
@@ -20,5 +20,5 @@ type User interface {
 	NombreUsuario() string
 
 	// devuelve el registro de usuarios
-	Registro() *hash.Diccionario[string, User]
+	Registro() hash.Diccionario[string, User]
 }

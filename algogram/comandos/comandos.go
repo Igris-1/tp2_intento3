@@ -2,6 +2,7 @@ package comandos
 
 import (
 	errores "algogram/errores"
+	post "algogram/redUsuario/post"
 	red "algogram/redUsuario/red"
 	"fmt"
 	"strconv"
@@ -31,11 +32,11 @@ func LoggOut(red red.Red) {
 func Publicar(red red.Red, contenido string) {
 	loggeado, err := red.Loggeado()
 	if err != nil {
-		fmt.Println(errores.UsuarioNoLoggeado{})
+		fmt.Println(err)
 	} else {
 		cantPost := red.CantidadPost()
-		tipoPost := loggeado.CrearPost(cantPost, loggeado, contenido)
-		red.PublicarPost(tipoPost)
+		post := post.CrearPost(cantPost, loggeado.NombreUsuario(), contenido)
+		red.PublicarPost(post)
 		fmt.Println("Post publicado")
 	}
 }
@@ -43,15 +44,13 @@ func Publicar(red red.Red, contenido string) {
 // VerSiguienteFeed
 func VerSiguienteFeed(red red.Red) {
 	usuario, err := red.Loggeado()
-	if err != nil {
-		fmt.Println(err)
-	} else if usuario.Feed().EstaVacia() {
-		fmt.Println(errores.NoHayMasPost{})
+	if err != nil || usuario.Feed().EstaVacia() {
+		fmt.Println(errores.SinPostsOsinLoggeado{})
 	} else {
-		post := usuario.Feed().Desencolar()
-		fmt.Println("Post ID", usuario.PostID(post))
-		fmt.Println(usuario.Publicador(post), "dijo:", usuario.Contenido(post))
-		fmt.Println("Likes:", usuario.PostLikes(post).Cantidad())
+		post := *usuario.Feed().Desencolar()
+		fmt.Println("Post ID", post.PostID())
+		fmt.Println(post.Publicador(), "dijo:", post.Contenido())
+		fmt.Println("Likes:", post.PostLikes().Cantidad())
 	}
 }
 
@@ -76,10 +75,9 @@ func MostrarLikes(red red.Red, id string) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("El post tiene", arbol.Cantidad(), " likes:")
-
+	fmt.Println("El post tiene", arbol.Cantidad(), "likes:")
 	arbol.Iterar(func(key string, value int) bool {
-		fmt.Println("	", key)
+		fmt.Println("	" + key)
 		return true
 	})
 }
