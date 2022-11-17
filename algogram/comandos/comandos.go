@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-// LoggIn
+// LoggIn: loggea al usuario, si no exste devuelve un error
 func LoggIn(red red.Red, nombre string) {
 	err := red.LoggIn(nombre)
 	if err != nil {
@@ -18,7 +18,7 @@ func LoggIn(red red.Red, nombre string) {
 	}
 }
 
-// LoggOut
+// LoggOut: desloggea al usuario, si no habia nadie loggeado devuelve un error
 func LoggOut(red red.Red) {
 	err := red.LoggOut()
 	if err != nil {
@@ -28,7 +28,7 @@ func LoggOut(red red.Red) {
 	}
 }
 
-// Publicar
+// Publicar: publica un post en la red, s no haba nadie loggeado devuelve un error
 func Publicar(red red.Red, contenido string) {
 	loggeado, err := red.Loggeado()
 	if err != nil {
@@ -41,7 +41,7 @@ func Publicar(red red.Red, contenido string) {
 	}
 }
 
-// VerSiguienteFeed
+// VerSiguienteFeed: muestra el siguiente post del feed del usuario loggeado, si no hay nadie loggeado devuelve un error
 func VerSiguienteFeed(red red.Red) {
 	usuario, err := red.Loggeado()
 	if err != nil || usuario.Feed().EstaVacia() {
@@ -54,7 +54,7 @@ func VerSiguienteFeed(red red.Red) {
 	}
 }
 
-// likear un post
+// Likear: Likea un post de la red, si no hay nadie loggeado o el post no existe devuelve un error
 func Likear(red red.Red, id string) {
 	idInt, _ := strconv.Atoi(id)
 	err := red.Likear(idInt)
@@ -65,7 +65,8 @@ func Likear(red red.Red, id string) {
 	}
 }
 
-// mostrar likes
+// MostrarLikes: muestr el el posteador, el id del post y la cantidad de personas que likearon el post
+// si el post no existe o la cantidad de likes es 0 devuelve un error
 func MostrarLikes(red red.Red, id string) {
 	idInt, _ := strconv.Atoi(id)
 	arbol, err := red.MostrarLikes(idInt)
