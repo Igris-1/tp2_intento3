@@ -10,8 +10,6 @@ import (
 
 func main() {
 	ruta := os.Args[1]
-
-	// agregar usuarios a la red
 	red, error := funciones.AgregarUsuarios(ruta)
 	if error != nil {
 		panic(errores.ErrorLecturaArchivo{})

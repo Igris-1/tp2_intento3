@@ -58,7 +58,8 @@ func (e PostInexistenteOSinLikes) Error() string {
 	return "Error: Post inexistente o sin likes"
 }
 
-/* ERRORE DE LECTURA DE ARCHIVO */
+/* ERROR DE LECTURA DE ARCHIVO */
+
 type ErrorLecturaArchivo struct{}
 
 func (e ErrorLecturaArchivo) Error() string {

@@ -70,26 +70,16 @@ func CrearUsuario(nombre string, posicion int, registro *hash.Diccionario[string
 }
 
 // ver proximo post
-func (u usuario) VerProximoPost() *post.Post {
-	return u.feed.Desencolar()
-}
+func (u usuario) VerProximoPost() *post.Post { return u.feed.Desencolar() }
 
 // Feed devuelve el feed del usuario
-func (u usuario) Feed() heap.ColaPrioridad[*post.Post] {
-	return u.feed
-}
+func (u usuario) Feed() heap.ColaPrioridad[*post.Post] { return u.feed }
 
 // devolver el nombre
-func (u usuario) NombreUsuario() string {
-	return u.nombre
-}
+func (u usuario) NombreUsuario() string { return u.nombre }
 
 // devolver el id
-func (u usuario) PosicionUsuario() int {
-	return u.posicion
-}
+func (u usuario) PosicionUsuario() int { return u.posicion }
 
 // devuelve el registro de usuarios
-func (u usuario) Registro() hash.Diccionario[string, User] {
-	return *u.reg
-}
+func (u usuario) Registro() hash.Diccionario[string, User] { return *u.reg }

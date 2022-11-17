@@ -16,7 +16,6 @@ func AgregarUsuarios(ruta string) (red.Red, error) {
 	}
 	defer archivo.Close()
 
-	// leer archivo
 	red := red.CrearRed()
 	registro := red.Registrados()
 

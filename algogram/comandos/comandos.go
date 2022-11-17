@@ -56,7 +56,6 @@ func VerSiguienteFeed(red red.Red) {
 
 // likear un post
 func Likear(red red.Red, id string) {
-	//transformar a int
 	idInt, _ := strconv.Atoi(id)
 	err := red.Likear(idInt)
 	if err != nil {
@@ -68,7 +67,6 @@ func Likear(red red.Red, id string) {
 
 // mostrar likes
 func MostrarLikes(red red.Red, id string) {
-	// transformar a int
 	idInt, _ := strconv.Atoi(id)
 	arbol, err := red.MostrarLikes(idInt)
 	if err != nil {

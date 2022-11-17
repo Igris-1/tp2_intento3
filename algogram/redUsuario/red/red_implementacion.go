@@ -52,8 +52,6 @@ func (r *red) Loggeado() (usuario.User, error) {
 // PublicarPost permite publicar un post en la red
 func (r *red) PublicarPost(post post.Post) error {
 	r.posteados.Guardar(post.PostID(), &post)
-
-	//guardar el post en el feed de cada usuario
 	r.GuardarFeed(post)
 	return nil
 }
@@ -83,7 +81,6 @@ func (r *red) Likear(id int) error {
 	if arbolDeLikes.Pertenece(usuario.NombreUsuario()) {
 		return nil
 	}
-	// la cantidad de likes del post es la cantidad de usuarios en el arbol
 	arbolDeLikes.Guardar(usuario.NombreUsuario(), 1)
 	return nil
 }
