@@ -1,9 +1,9 @@
 package main
 
 import (
-	comandos "algogram/comandos"
-	errores "algogram/errores"
-	funciones "algogram/funciones"
+	comandos "Algogram/comandos"
+	errores "Algogram/errores"
+	funciones "Algogram/funciones"
 	"bufio"
 	"os"
 )

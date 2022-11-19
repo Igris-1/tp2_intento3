@@ -1,8 +1,8 @@
 package auxiliares
 
 import (
-	red "algogram/redUsuario/red"
-	usuario "algogram/redUsuario/usuario"
+	red "Algogram/redUsuario/red"
+	usuario "Algogram/redUsuario/usuario"
 	"bufio"
 	"os"
 	"strings"

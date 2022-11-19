@@ -1,9 +1,9 @@
 package redUsuario
 
 import (
-	post "algogram/redUsuario/post"
-	hash "algogram/tdas/hash"
-	heap "algogram/tdas/heap"
+	post "Algogram/redUsuario/post"
+	hash "Algogram/tdas/hash"
+	heap "Algogram/tdas/heap"
 )
 
 type User interface {

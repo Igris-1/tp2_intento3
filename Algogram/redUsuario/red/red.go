@@ -1,10 +1,10 @@
 package redUsuario
 
 import (
-	post "algogram/redUsuario/post"
-	user "algogram/redUsuario/usuario"
-	abb "algogram/tdas/abb"
-	hash "algogram/tdas/hash"
+	post "Algogram/redUsuario/post"
+	user "Algogram/redUsuario/usuario"
+	abb "Algogram/tdas/abb"
+	hash "Algogram/tdas/hash"
 )
 
 type Red interface {

@@ -1,9 +1,9 @@
 package comandos
 
 import (
-	errores "algogram/errores"
-	post "algogram/redUsuario/post"
-	red "algogram/redUsuario/red"
+	errores "Algogram/errores"
+	post "Algogram/redUsuario/post"
+	red "Algogram/redUsuario/red"
 	"fmt"
 	"strconv"
 )

@@ -1,12 +1,12 @@
 package redUsuario
 
 import (
-	errores "algogram/errores"
-	post "algogram/redUsuario/post"
-	usuario "algogram/redUsuario/usuario"
-	abb "algogram/tdas/abb"
-	hash "algogram/tdas/hash"
-	pila "algogram/tdas/pila"
+	errores "Algogram/errores"
+	post "Algogram/redUsuario/post"
+	usuario "Algogram/redUsuario/usuario"
+	abb "Algogram/tdas/abb"
+	hash "Algogram/tdas/hash"
+	pila "Algogram/tdas/pila"
 )
 
 type red struct {

@@ -1,7 +1,7 @@
 package redUsuario
 
 import (
-	abb "algogram/tdas/abb"
+	abb "Algogram/tdas/abb"
 )
 
 type post struct {

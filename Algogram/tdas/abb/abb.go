@@ -1,7 +1,7 @@
 package diccionario
 
 import (
-	TDAPila "algogram/tdas/pila"
+	TDAPila "Algogram/tdas/pila"
 )
 
 type hijo string
