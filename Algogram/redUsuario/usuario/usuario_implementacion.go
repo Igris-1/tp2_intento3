@@ -60,12 +60,12 @@ type usuario struct {
 }
 
 // CrearUsuario: crea un usuario con el nombre, posicion, registro de la red y una funcion de comparacion
-func CrearUsuario(nombre string, posicion int, registro *hash.Diccionario[string, User], cmp func(u usuario) func(a *post.Post, b *post.Post) int) User {
+func CrearUsuario(nombre string, pos int, reg *hash.Diccionario[string, User], cmp func(u usuario) func(a *post.Post, b *post.Post) int) User {
 	var usuario usuario
 	usuario.nombre = nombre
-	usuario.posicion = posicion
+	usuario.posicion = pos
 	usuario.cmp = cmp
-	usuario.reg = registro
+	usuario.reg = reg
 	usuario.feed = heap.CrearHeap(cmp(usuario))
 	return usuario
 }

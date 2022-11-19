@@ -58,15 +58,13 @@ func (r *red) PublicarPost(post post.Post) error {
 
 // guardarFeed: funcion auxiliar de PublicarPost() que guarda el post en el feed de cada usuario
 func (r *red) guardarFeed(post post.Post) {
-	iterRegistrados := r.registrados.Iterador()
-	for iterRegistrados.HaySiguiente() {
-		_, usuario := iterRegistrados.VerActual()
+	r.registrados.Iterar(func(nombre string, usuario usuario.User) bool {
 		if usuario.NombreUsuario() != post.Publicador() {
 			feedDelUser := usuario.Feed()
 			feedDelUser.Encolar(&post)
 		}
-		iterRegistrados.Siguiente()
-	}
+		return true
+	})
 }
 
 // Likear: permite al usuario loggeado likear un post, caso contrario devuelve error
@@ -77,10 +75,6 @@ func (r *red) Likear(id int) error {
 	usuario := r.loggeado.VerTope()
 	post := *r.posteados.Obtener(id)
 	arbolDeLikes := post.PostLikes()
-
-	if arbolDeLikes.Pertenece(usuario.NombreUsuario()) {
-		return nil
-	}
 	arbolDeLikes.Guardar(usuario.NombreUsuario(), 1)
 	return nil
 }

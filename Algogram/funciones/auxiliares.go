@@ -25,8 +25,6 @@ func AgregarUsuarios(ruta string) (red.Red, error) {
 	for usuarios.Scan() {
 		usuario := usuario.CrearUsuario(usuarios.Text(), posicion, &registro, usuario.Cmp)
 		registro.Guardar(usuarios.Text(), usuario)
-
-		red.Registrados().Guardar(usuarios.Text(), usuario)
 		posicion++
 	}
 	return red, nil
